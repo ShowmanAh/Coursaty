@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,14 @@ class EnrollmentController extends Controller
        'student_id' => Auth::user()->id,
        'course_id' => $course->id,
        ]);
-     return redirect()->route('site');
+       return redirect('/student/courses/'.Auth::user()->id);
+    // return redirect()->route('site');
+   }
+
+   public function courses($id){
+       $student = Auth::user()->id;
+    $enrolls = User::select('id','name')->with('courses')->where('id', $student)->get();
+//return $enrolls;
+    return view('student.courses', compact('enrolls'));
    }
 }

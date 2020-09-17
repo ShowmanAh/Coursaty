@@ -32,5 +32,6 @@ Route::get('dashboard', function(){
         Route::get('login', 'StudentLoginController@login');
         Route::post('login', 'StudentLoginController@Postlogin')->name('student.login');//admin login
         Route::get('courses/register/{user}/{course}', 'EnrollmentController@enroll')->name('student.enroll');
+        Route::get('student/courses/{id}', 'EnrollmentController@courses')->middleware(['auth']);
           });
 
